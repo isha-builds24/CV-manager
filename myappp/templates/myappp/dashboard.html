@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <a href="{% url 'save_profile' %}">Create CV +</a>
+    <div class="bg-gray-100">
+        {% for resume in resumes %}
+        <div class="rounded-lg bg-yellow-400 w-1/3">
+            <p>{{resume.name}}</p>
+            <p>{{resume.email}}</p>
+            <a class="bg-pink-300" href="{% url 'resume' resume.id %}">Preview</a>
+            <a href="">Download</a>
+            <a href="">Edit</a>
+            <a href="">Delete</a>
+        </div>
+        
+        {% endfor %}
+    </div>
+</body>
+</html>

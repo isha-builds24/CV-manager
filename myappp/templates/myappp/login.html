@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        input {
+            width :100%;
+            border : 1px solid #cbd5e1;
+            border-radius : 0.75rem;
+            padding : 0.5rem 0.75rem;
+            margin-top: 0.25rem;
+
+        }
+        .helptext, form ul { font-size: 0.75rem; color : #64748b; }
+    </style>
+</head>
+<body class="min-h-screen grid place-items-center bg-slate-50 px-4">
+    <form method="POST" class="w-full max-w-sm bg-white p-8 rounded-2xl shadow space-y-4">
+        {% csrf_token %}
+        <h1 class="text-2xl font-bold">Login</h1>
+        {{ form.as_p }}
+        <button type="submit" class="w-full rounded-xl bg-slate-600 text-white py-2.5 font-semibold">Login</button>
+        <p class="text-sm text-slate-600">No account? <a href="{% url 'signup' %}" class="underline">Sign up</a> </p>
+    </form> 
+</body>
+</html>

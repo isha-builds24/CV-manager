@@ -1,0 +1,165 @@
+<!-- templates/view_cv.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CV · {{ user_profile.name }}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui"]
+            },
+            colors: {
+              brand: {
+                50: "#eef2ff",
+                100: "#e0e7ff",
+                200: "#c7d2fe",
+                300: "#a5b4fc",
+                400: "#818cf8",
+                500: "#6366f1",
+                600: "#4f46e5",
+                700: "#4338ca",
+                800: "#3730a3",
+                900: "#312e81"
+              }
+            },
+            boxShadow: {
+              soft: "0 10px 30px rgba(2, 6, 23, 0.08)",
+              hover: "0 20px 40px rgba(2, 6, 23, 0.12)"
+            }
+          }
+        }
+      };
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      @media print {
+        .no-print {
+          display: none;
+        }
+      }
+
+      body {
+        background-image: radial-gradient(
+            60rem 30rem at 10% -10%,
+            rgba(99, 102, 241, 0.15),
+            transparent 40%
+          ),
+          radial-gradient(
+            40rem 20rem at 110% 10%,
+            rgba(14, 165, 233, 0.12),
+            transparent 35%
+          );
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen flex items-center justify-center px-4 py-10 text-slate-800"
+  >
+    <div
+      class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-soft ring-1 ring-slate-200 w-full max-w-4xl p-10"
+    >
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-slate-900">
+          {{ user_profile.name }}
+        </h1>
+
+        <p class="text-lg text-slate-600">
+          {{ user_profile.email }} | {{ user_profile.phone }}
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-3">
+            Education
+          </h2>
+
+          <div class="bg-slate-50 rounded-xl p-4 space-y-2">
+            <p>
+              <span class="font-bold">Degree:</span>
+              {{ user_profile.degree }}
+            </p>
+
+            <p>
+              <span class="font-bold">School:</span>
+              {{ user_profile.school }}
+            </p>
+
+            <p>
+              <span class="font-bold">University:</span>
+              {{ user_profile.university }}
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-3">
+            Professional Summary
+          </h2>
+
+          <p class="bg-slate-50 rounded-xl p-4 leading-relaxed">
+            {{ user_profile.summary |linebreaksbr }}
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-3">
+            Work Experience
+          </h2>
+
+          <p class="bg-slate-50 rounded-xl p-4 leading-relaxed">
+            {{ user_profile.previous_work | linebreaksbr }}
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-slate-900 mb-3">
+            Skills
+          </h2>
+
+          <p class="bg-slate-50 rounded-xl p-4 font-medium">
+            {{ user_profile.skills | linebreaksbr}}
+          </p>
+        </section>
+      </div>
+
+      <div class="mt-10 flex flex-wrap justify-center gap-3 no-print">
+        <button
+          onclick="window.print()"
+          class="inline-flex items-center gap-2 rounded-xl bg-brand-600 text-white font-semibold px-5 py-3 shadow-soft hover:bg-brand-700 transition"
+        >
+          Print CV
+        </button>
+
+        <a
+          href="{% url 'download_resume' user_profile.id %}"
+          class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 text-white font-semibold px-5 py-3 shadow-soft hover:bg-emerald-700 transition"
+        >
+          Download Resume
+        </a>
+
+        <a
+          href="{% url 'dashboard' %}"
+          class="inline-flex items-center gap-2 rounded-xl bg-slate-500 text-white font-semibold px-5 py-3 shadow-soft hover:bg-slate-600 transition"
+        >
+          Back to Home
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

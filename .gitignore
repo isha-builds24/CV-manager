@@ -1,0 +1,14 @@
+# environment variables
+.env
+
+# database
+db.sqlite3
+
+# virtual enviornment 
+thevenv
+
+#python django cache
+__pycache__/
+
+#jason data
+backup.json

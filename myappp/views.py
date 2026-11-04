@@ -42,18 +42,35 @@ from django.contrib.auth.models import User
 #         'total_cvs': total_cvs,
 #     }
 #     return render(request, 'myappp/modern-dashboard.html', context)
+# @login_required
+# def dashboard(request):
+#     q = request.GET.get('q', '').strip()
+#     profiles = Profile.objects.filter(owner=request.user)
 
+#     if request.user.is_authenticated:
+#         if request.user.is_superuser:
+#             profiles = Profile.objects.all()
+#         else:
+#             profiles = Profile.objects.filter(owner=request.user)
+#     else:
+#         profiles = Profile.objects.none()
+
+#     if q:
+#         profiles = profiles.filter(
+#             Q(name__icontains=q) | Q(email__icontains=q)
+#         )
+
+#     context = {
+#         'profiles': profiles.order_by('-id'),
+#         'total_users': User.objects.count(),
+#         'total_cvs': Profile.objects.count(),
+#     }
+#     return render(request, 'myappp/modern-dashboard.html', context)
+
+@login_required
 def dashboard(request):
     q = request.GET.get('q', '').strip()
     profiles = Profile.objects.filter(owner=request.user)
-
-    if request.user.is_authenticated:
-        if request.user.is_superuser:
-            profiles = Profile.objects.all()
-        else:
-            profiles = Profile.objects.filter(owner=request.user)
-    else:
-        profiles = Profile.objects.none()
 
     if q:
         profiles = profiles.filter(
@@ -114,7 +131,7 @@ def download_resume(request,id):
 
     # setting up response
     response= HttpResponse(content_type='application/pdf')
-    safe_name= user_profile.name.replace('','')
+    safe_name= user_profile.name.replace('','_')
     #response['Content-Disposition']= f'attachment; filename={user_profile.name}_CV.pdf' # this will make the file name
     response['Content-Disposition']= f'attachment; filename={safe_name}_CV.pdf'
     # making conversion

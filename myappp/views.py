@@ -41,7 +41,7 @@ def dashboard(request):
         'total_users': total_users,
         'total_cvs': total_cvs,
     }
-    return render(request, 'myapp/modern-dashboard.html', context)
+    return render(request, 'myappp/modern-dashboard.html', context)
 
 @login_required
 def save_profile(request):

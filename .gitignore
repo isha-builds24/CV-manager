@@ -12,3 +12,7 @@ __pycache__/
 
 #jason data
 backup.json
+
+
+#credential
+create_admin.py

@@ -11,18 +11,37 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
+from django.contrib.auth.models import User
 # Create your views here.
 # def save_profile(request):
 #     from django.shortcuts import render, redirect
 
 
 # redirect to homepage
+# def dashboard(request):
+#     q=request.GET.get('q','').strip()
+#     resumes=Profile.objects.all().order_by('-id')
+#     if q:
+#         resumes= resumes.filter(Q(name__icontains=q) | Q(email__icontains=q))
+#     return render(request,'myappp/modern-dashboard.html',{'resumes':resumes})
+
 def dashboard(request):
-    q=request.GET.get('q','').strip()
-    resumes=Profile.objects.all().order_by('-id')
+    q = request.GET.get('q', '').strip()
+    resumes = Profile.objects.all().order_by('-id')
+    
     if q:
-        resumes= resumes.filter(Q(name__icontains=q) | Q(email__icontains=q))
-    return render(request,'myappp/modern-dashboard.html',{'resumes':resumes})
+        resumes = resumes.filter(Q(name_icontains=q) | Q(email_icontains=q))
+    
+    # Add these counts for your tracking
+    total_users = User.objects.count()
+    total_cvs = Profile.objects.count()
+
+    context = {
+        'resumes': resumes,
+        'total_users': total_users,
+        'total_cvs': total_cvs,
+    }
+    return render(request, 'myapp/modern-dashboard.html', context)
 
 @login_required
 def save_profile(request):

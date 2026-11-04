@@ -130,6 +130,16 @@
                 />
               </svg>
             </form>
+            <div class="max-w-7xl mx-auto px-6 mt-6 flex gap-4 text-white">
+                <div class="bg-white/10 px-4 py-3 rounded-xl">
+                      <span class="text-sm opacity-80">Total Users:</span> 
+                      <span class="font-bold text-lg">{{ total_users }}</span>
+                </div>
+                <div class="bg-white/10 px-4 py-3 rounded-xl">
+                      <span class="text-sm opacity-80">Total CVs:</span> 
+                      <span class="font-bold text-lg">{{ total_cvs }}</span>
+                </div>
+            </div>
             {% if user.is_authenticated %}
               <span class="text-white/90 text-sm">Hi, {{ user.username }}</span>
               <form action="{% url 'logout' %}" method="post" class="inline">
